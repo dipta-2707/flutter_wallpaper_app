@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:wallpaper_app/api/api_services.dart';
 import 'package:wallpaper_app/data/list_catagory.dart';
 import 'package:wallpaper_app/widgets/catagory_widget.dart';
 
@@ -13,6 +11,15 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
+  ApiService apiService = ApiService();
+  @override
+  void initState() {
+    apiService.getTranding();
+    // TODO: implement initState
+    super.initState();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +75,9 @@ class _MyHomeState extends State<MyHome> {
                         imgSrc: catagoryData[index][1],
                         tittle: catagoryData[index][0]);
                   })),
-            )
+            ),
+
+            //--------------------- Results ----------------------
           ],
         ),
       ),
