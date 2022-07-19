@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wallpaper_app/api/api_services.dart';
 import 'package:wallpaper_app/data/list_catagory.dart';
+import 'package:wallpaper_app/model/wallpapers_model.dart';
 import 'package:wallpaper_app/widgets/catagory_widget.dart';
+import 'package:wallpaper_app/widgets/image_grid_widget.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({Key? key}) : super(key: key);
@@ -11,11 +13,10 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
-  ApiService apiService = ApiService();
   @override
   void initState() {
-    apiService.getTranding();
     // TODO: implement initState
+
     super.initState();
     setState(() {});
   }
@@ -39,46 +40,88 @@ class _MyHomeState extends State<MyHome> {
           ],
         ),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            //------------------------ Search Bar -----------------
-            Container(
-              decoration: BoxDecoration(
-                  color: const Color(0xfff5f8fd),
-                  borderRadius: BorderRadius.circular(35)),
-              margin: const EdgeInsets.only(left: 25, right: 25),
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'search your wallpaper',
-                    suffixIcon: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.search),
-                    )),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: [
+              //------------------------ Search Bar -----------------
+              Container(
+                decoration: BoxDecoration(
+                    color: const Color(0xfff5f8fd),
+                    borderRadius: BorderRadius.circular(35)),
+                margin: const EdgeInsets.only(left: 25, right: 25),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: TextField(
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'search your wallpaper',
+                      suffixIcon: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.search),
+                      )),
+                ),
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            //------------------- quick search -------------------
-            Container(
-              height: 200,
-              child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: catagoryData.length,
-                  itemBuilder: ((context, index) {
-                    return MyCatagory(
-                        imgSrc: catagoryData[index][1],
-                        tittle: catagoryData[index][0]);
-                  })),
-            ),
+              SizedBox(
+                height: 10,
+              ),
+              //------------------- quick search -------------------
+              Container(
+                //color: Colors.red,
+                height: 50,
+                child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: catagoryData.length,
+                    itemBuilder: ((context, index) {
+                      return MyCatagory(
+                          imgSrc: catagoryData[index][1],
+                          tittle: catagoryData[index][0]);
+                    })),
+              ),
 
-            //--------------------- Results ----------------------
-          ],
+              //--------------------- Results ----------------------
+              const SizedBox(
+                height: 10,
+              ),
+
+              Container(
+                //color: Colors.blue,
+                margin: EdgeInsets.symmetric(horizontal: 8.0),
+                child: FutureBuilder(
+                    future: ApiService().fetchTranding(),
+                    builder: (context, AsyncSnapshot snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.done:
+                          // for (var i = 0; i < 10; i++) {
+                          //   print(snapshot.data["photos"][i]["src"]["portrait"]);
+                          // }
+                          return GridView.builder(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data["photos"].length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      childAspectRatio: 0.6,
+                                      mainAxisSpacing: 6.0,
+                                      crossAxisSpacing: 6.0),
+                              itemBuilder: (context, index) {
+                                return GridTile(
+                                    child: Container(
+                                  child: Image.network(
+                                    snapshot.data["photos"][index]["src"]
+                                        ["portrait"],
+                                    fit: BoxFit.cover,
+                                  ),
+                                ));
+                              });
+                        default:
+                          return const CircularProgressIndicator();
+                      }
+                    }),
+              )
+            ],
+          ),
         ),
       ),
     );
