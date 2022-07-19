@@ -109,10 +109,16 @@ class _MyHomeState extends State<MyHome> {
                                 return GridTile(
                                     child: Container(
                                   child: Image.network(
-                                    snapshot.data["photos"][index]["src"]
-                                        ["portrait"],
-                                    fit: BoxFit.cover,
-                                  ),
+                                      snapshot.data["photos"][index]["src"]
+                                          ["portrait"],
+                                      fit: BoxFit.cover,
+                                      loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  }),
                                 ));
                               });
                         default:
