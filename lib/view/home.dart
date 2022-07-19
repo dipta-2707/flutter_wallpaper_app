@@ -13,12 +13,20 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
+  late TextEditingController _searchController;
   @override
   void initState() {
+    _searchController = TextEditingController();
     // TODO: implement initState
-
     super.initState();
-    setState(() {});
+    //_searchController.text = "deafult";
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _searchController.dispose();
   }
 
   @override
@@ -52,11 +60,14 @@ class _MyHomeState extends State<MyHome> {
                 margin: const EdgeInsets.only(left: 25, right: 25),
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: TextField(
+                  controller: _searchController,
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'search your wallpaper',
                       suffixIcon: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {});
+                        },
                         icon: const Icon(Icons.search),
                       )),
                 ),
@@ -87,9 +98,10 @@ class _MyHomeState extends State<MyHome> {
 
               Container(
                 //color: Colors.blue,
-                margin: EdgeInsets.symmetric(horizontal: 8.0),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
                 child: FutureBuilder(
-                    future: ApiService().fetchTranding(),
+                    future: ApiService().fetchTranding(_searchController.text),
                     builder: (context, AsyncSnapshot snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.done:
@@ -116,13 +128,13 @@ class _MyHomeState extends State<MyHome> {
                                           Widget child,
                                           ImageChunkEvent? loadingProgress) {
                                     if (loadingProgress == null) return child;
-                                    return Center(
+                                    return const Center(
                                         child: CircularProgressIndicator());
                                   }),
                                 ));
                               });
                         default:
-                          return const CircularProgressIndicator();
+                          return const LinearProgressIndicator();
                       }
                     }),
               )
