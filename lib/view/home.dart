@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wallpaper_app/api/api_services.dart';
 import 'package:wallpaper_app/data/list_catagory.dart';
 import 'package:wallpaper_app/model/wallpapers_model.dart';
+import 'package:wallpaper_app/view/full_image_view.dart';
 import 'package:wallpaper_app/widgets/catagory_widget.dart';
 import 'package:wallpaper_app/widgets/image_grid_widget.dart';
 
@@ -122,20 +123,32 @@ class _MyHomeState extends State<MyHome> {
                                       mainAxisSpacing: 6.0,
                                       crossAxisSpacing: 6.0),
                               itemBuilder: (context, index) {
-                                return GridTile(
-                                    child: Container(
-                                  child: Image.network(
-                                      snapshot.data["photos"][index]["src"]
-                                          ["portrait"],
-                                      fit: BoxFit.cover,
-                                      loadingBuilder: (BuildContext context,
-                                          Widget child,
-                                          ImageChunkEvent? loadingProgress) {
-                                    if (loadingProgress == null) return child;
-                                    return const Center(
-                                        child: CircularProgressIndicator());
-                                  }),
-                                ));
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MyFullImage(
+                                                  imgSrc: snapshot
+                                                          .data["photos"][index]
+                                                      ["src"]["portrait"],
+                                                )));
+                                  },
+                                  child: GridTile(
+                                      child: Container(
+                                    child: Image.network(
+                                        snapshot.data["photos"][index]["src"]
+                                            ["portrait"],
+                                        fit: BoxFit.cover,
+                                        loadingBuilder: (BuildContext context,
+                                            Widget child,
+                                            ImageChunkEvent? loadingProgress) {
+                                      if (loadingProgress == null) return child;
+                                      return const Center(
+                                          child: CircularProgressIndicator());
+                                    }),
+                                  )),
+                                );
                               });
                         default:
                           return const LinearProgressIndicator();
