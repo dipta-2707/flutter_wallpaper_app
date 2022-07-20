@@ -85,9 +85,16 @@ class _MyHomeState extends State<MyHome> {
                     scrollDirection: Axis.horizontal,
                     itemCount: catagoryData.length,
                     itemBuilder: ((context, index) {
-                      return MyCatagory(
-                          imgSrc: catagoryData[index][1],
-                          tittle: catagoryData[index][0]);
+                      return GestureDetector(
+                        onTap: () {
+                          //print(catagoryData[index][0]);
+                          _searchController.text = catagoryData[index][0];
+                          setState(() {});
+                        },
+                        child: MyCatagory(
+                            imgSrc: catagoryData[index][1],
+                            tittle: catagoryData[index][0]),
+                      );
                     })),
               ),
 
@@ -105,9 +112,6 @@ class _MyHomeState extends State<MyHome> {
                     builder: (context, AsyncSnapshot snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.done:
-                          // for (var i = 0; i < 10; i++) {
-                          //   print(snapshot.data["photos"][i]["src"]["portrait"]);
-                          // }
                           return GridView.builder(
                               shrinkWrap: true,
                               itemCount: snapshot.data["photos"].length,
