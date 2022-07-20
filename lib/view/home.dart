@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wallpaper_app/api/api_services.dart';
 import 'package:wallpaper_app/data/list_catagory.dart';
-import 'package:wallpaper_app/model/wallpapers_model.dart';
 import 'package:wallpaper_app/view/full_image_view.dart';
 import 'package:wallpaper_app/widgets/catagory_widget.dart';
-import 'package:wallpaper_app/widgets/image_grid_widget.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({Key? key}) : super(key: key);

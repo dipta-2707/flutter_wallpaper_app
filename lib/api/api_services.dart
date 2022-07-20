@@ -1,9 +1,6 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:wallpaper_app/api/api_key.dart';
-import 'package:wallpaper_app/model/wallpapers_model.dart';
 
 class ApiService {
   //List<WallpaperModel> wallpapersList = List.empty();

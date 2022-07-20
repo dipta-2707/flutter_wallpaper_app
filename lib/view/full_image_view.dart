@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:wallpaper_app/service/save_image_service.dart';
 
 class MyFullImage extends StatelessWidget {
   final String imgSrc;
@@ -28,8 +29,9 @@ class MyFullImage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 GestureDetector(
-                  onTap: () {
-                    print('saved');
+                  onTap: () async {
+                    //print('saved');
+                    await SaveImageService().setImage(imgSrc);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(8.0),
