@@ -36,6 +36,7 @@ dependencies:
   http: ^0.13.4
   wallpaper_manager_flutter: ^0.0.2
   flutter_cache_manager: ^3.3.0
+  permission_handler: ^10.0.0
 
 dev_dependencies:
   flutter_test:

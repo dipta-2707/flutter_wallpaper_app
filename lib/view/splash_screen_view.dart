@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class MySplashScreen extends StatefulWidget {
   const MySplashScreen({Key? key}) : super(key: key);
@@ -19,7 +20,19 @@ class _MySplashScreenState extends State<MySplashScreen> {
   _navigateToHome() async {
     await Future.delayed(const Duration(milliseconds: 2000), () {});
 
-    Navigator.pushReplacementNamed(context, '/home/');
+    if (await Permission.storage.request().isGranted) {
+      Navigator.pushReplacementNamed(context, '/home/');
+    } else {
+      var status = await Permission.storage.status;
+      if (status.isGranted) {
+        Navigator.pushReplacementNamed(context, '/home/');
+      } else if (status.isDenied) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: const Text('need storage permisson to save image')));
+      } else if (status.isPermanentlyDenied) {
+        openAppSettings();
+      }
+    }
   }
 
   @override
