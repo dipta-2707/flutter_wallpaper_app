@@ -8,7 +8,6 @@ class SaveImageService {
   Future<void> setImage(String url) async {
     //print(Platform.environment);
     if (Platform.isAndroid) {
-      print('android');
       try {
         int location = WallpaperManagerFlutter
             .HOME_SCREEN; //Xiaomi/MIUI does not support changing Lock Screen Wallpapers directly from the Android API

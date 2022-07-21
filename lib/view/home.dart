@@ -39,11 +39,12 @@ class _MyHomeState extends State<MyHome> {
           // ignore: prefer_const_literals_to_create_immutables
           children: [
             const Text(
-              'D',
-              style:
-                  TextStyle(color: Colors.yellow, fontWeight: FontWeight.bold),
+              'Wallpaper',
+              style: TextStyle(color: Color(0xff8CCEEB)),
             ),
-            const Text('allpaper', style: TextStyle(color: Colors.blue))
+            const Text('POOL',
+                style: TextStyle(
+                    color: Color(0xff003061), fontWeight: FontWeight.bold))
           ],
         ),
       ),

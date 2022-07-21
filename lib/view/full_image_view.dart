@@ -32,6 +32,7 @@ class MyFullImage extends StatelessWidget {
                   onTap: () async {
                     //print('saved');
                     await SaveImageService().setImage(imgSrc);
+                    Navigator.pop(context);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(8.0),
