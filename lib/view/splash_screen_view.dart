@@ -13,7 +13,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateToHome();
+    //_navigateToHome();
   }
 
   _navigateToHome() async {
@@ -28,33 +28,51 @@ class _MySplashScreenState extends State<MySplashScreen> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.symmetric(vertical: 10.0),
         color: Colors.white,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              height: 80,
-              width: 80,
-              color: Colors.blue,
-            ),
             SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              // ignore: prefer_const_literals_to_create_immutables
+            Column(
               children: [
-                const Text(
-                  'Wallpaper',
-                  style: TextStyle(color: Color(0xff8CCEEB), fontSize: 18),
+                Container(
+                  height: 80,
+                  width: 80,
+                  color: Colors.blue,
                 ),
-                const Text('POOL',
-                    style: TextStyle(
-                        color: Color(0xff003061),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20))
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  // ignore: prefer_const_literals_to_create_immutables
+                  children: [
+                    const Text(
+                      'Wallpaper',
+                      style: TextStyle(color: Color(0xff8CCEEB), fontSize: 18),
+                    ),
+                    const Text('POOL',
+                        style: TextStyle(
+                            color: Color(0xff003061),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20)),
+                  ],
+                ),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Developed by '),
+                Text(
+                  'Dipta Das',
+                  style: TextStyle(color: Color(0xff8CCEEB)),
+                )
+              ],
+            )
           ],
         ),
       ),
