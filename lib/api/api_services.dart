@@ -11,12 +11,12 @@ class ApiService {
       if (searchValue == "") {
         response = await http.get(
             Uri.parse(
-                'https://api.pexels.com/v1/curated?&per_page=12&page=$pageNumber'),
+                'https://api.pexels.com/v1/curated?&per_page=20&page=$pageNumber'),
             headers: {"Authorization": pixelApiKey});
       } else {
         response = await http.get(
             Uri.parse(
-                'https://api.pexels.com/v1/search?query=$searchValue&per_page=12&page=$pageNumber'),
+                'https://api.pexels.com/v1/search?query=$searchValue&per_page=20&page=$pageNumber'),
             headers: {"Authorization": pixelApiKey});
       }
 

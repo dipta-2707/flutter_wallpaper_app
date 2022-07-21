@@ -13,7 +13,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
   @override
   void initState() {
     super.initState();
-    //_navigateToHome();
+    _navigateToHome();
   }
 
   _navigateToHome() async {
@@ -28,12 +28,12 @@ class _MySplashScreenState extends State<MySplashScreen> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.symmetric(vertical: 10.0),
+        margin: const EdgeInsets.symmetric(vertical: 10.0),
         color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Column(
@@ -43,7 +43,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
                   width: 80,
                   color: Colors.blue,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
@@ -65,7 +65,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Text('Developed by '),
                 Text(
                   'Dipta Das',

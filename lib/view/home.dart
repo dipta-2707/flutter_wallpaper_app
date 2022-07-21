@@ -132,6 +132,8 @@ class _MyHomeState extends State<MyHome> {
                         switch (snapshot.connectionState) {
                           case ConnectionState.done:
                             return GridView.builder(
+                                scrollDirection: Axis.vertical,
+                                physics: const ScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: snapshot.data["photos"].length,
                                 gridDelegate:
