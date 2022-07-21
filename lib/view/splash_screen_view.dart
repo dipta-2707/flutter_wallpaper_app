@@ -18,6 +18,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
 
   _navigateToHome() async {
     await Future.delayed(const Duration(milliseconds: 2000), () {});
+
     Navigator.pushReplacementNamed(context, '/home/');
   }
 

@@ -13,12 +13,25 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
   late TextEditingController _searchController;
+  final ScrollController _scrollController = ScrollController();
+  int _pageNumber = 1;
   @override
   void initState() {
     _searchController = TextEditingController();
     // TODO: implement initState
     super.initState();
-    //_searchController.text = "deafult";
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        //_loadMore();
+      }
+    });
+  }
+
+  _loadMore() {
+    setState(() {
+      _pageNumber = _pageNumber + 1;
+    });
   }
 
   @override
@@ -49,6 +62,7 @@ class _MyHomeState extends State<MyHome> {
         ),
       ),
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Container(
           child: Column(
             children: [
@@ -61,6 +75,9 @@ class _MyHomeState extends State<MyHome> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: TextField(
                   controller: _searchController,
+                  onSubmitted: (_) {
+                    setState(() {});
+                  },
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'search your wallpaper',
@@ -108,49 +125,58 @@ class _MyHomeState extends State<MyHome> {
                 margin:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
                 child: FutureBuilder(
-                    future: ApiService().fetchTranding(_searchController.text),
+                    future: ApiService().fetchTranding(
+                        _searchController.text, _pageNumber.toString()),
                     builder: (context, AsyncSnapshot snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.done:
-                          return GridView.builder(
-                              shrinkWrap: true,
-                              itemCount: snapshot.data["photos"].length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      childAspectRatio: 0.6,
-                                      mainAxisSpacing: 6.0,
-                                      crossAxisSpacing: 6.0),
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => MyFullImage(
-                                                  imgSrc: snapshot
-                                                          .data["photos"][index]
-                                                      ["src"]["portrait"],
-                                                )));
-                                  },
-                                  child: GridTile(
-                                      child: Container(
-                                    child: Image.network(
-                                        snapshot.data["photos"][index]["src"]
-                                            ["portrait"],
-                                        fit: BoxFit.cover,
-                                        loadingBuilder: (BuildContext context,
-                                            Widget child,
-                                            ImageChunkEvent? loadingProgress) {
-                                      if (loadingProgress == null) return child;
-                                      return const Center(
-                                          child: CircularProgressIndicator());
-                                    }),
-                                  )),
-                                );
-                              });
-                        default:
-                          return const LinearProgressIndicator();
+                      try {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.done:
+                            return GridView.builder(
+                                shrinkWrap: true,
+                                itemCount: snapshot.data["photos"].length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        childAspectRatio: 0.6,
+                                        mainAxisSpacing: 6.0,
+                                        crossAxisSpacing: 6.0),
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => MyFullImage(
+                                                    imgSrc:
+                                                        snapshot.data["photos"]
+                                                                [index]["src"]
+                                                            ["portrait"],
+                                                  )));
+                                    },
+                                    child: GridTile(
+                                        child: Container(
+                                      child: Image.network(
+                                          snapshot.data["photos"][index]["src"]
+                                              ["portrait"],
+                                          fit: BoxFit.cover, loadingBuilder:
+                                              (BuildContext context,
+                                                  Widget child,
+                                                  ImageChunkEvent?
+                                                      loadingProgress) {
+                                        if (loadingProgress == null)
+                                          return child;
+                                        return const Center(
+                                            child: CircularProgressIndicator());
+                                      }),
+                                    )),
+                                  );
+                                });
+                          default:
+                            return const LinearProgressIndicator();
+                        }
+                      } catch (_) {
+                        return const Text(
+                            'please check your internet connection');
                       }
                     }),
               )

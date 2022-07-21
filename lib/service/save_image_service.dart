@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 import 'package:wallpaper_manager_flutter/wallpaper_manager_flutter.dart';
@@ -7,7 +8,7 @@ import 'package:wallpaper_manager_flutter/wallpaper_manager_flutter.dart';
 class SaveImageService {
   Future<void> setImage(String url) async {
     //print(Platform.environment);
-    if (Platform.isAndroid) {
+    if (defaultTargetPlatform == TargetPlatform.android) {
       try {
         int location = WallpaperManagerFlutter
             .HOME_SCREEN; //Xiaomi/MIUI does not support changing Lock Screen Wallpapers directly from the Android API
@@ -16,9 +17,11 @@ class SaveImageService {
       } catch (_) {
         throw Exception('can not set wallpaper in android');
       }
+    } else {
+      throw Exception('device not match');
     }
-    // if (Platform.isWindows) {
-    //   print("is windows");
+    //  else if (kIsWeb) {
+    //   print('web');
     //   try {
     //     await DefaultCacheManager().downloadFile(url);
     //   } catch (_) {

@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:wallpaper_app/service/save_image_service.dart';
+import 'package:wallpaper_app/widgets/dialog_widget.dart';
 
 class MyFullImage extends StatelessWidget {
   final String imgSrc;
@@ -31,7 +29,11 @@ class MyFullImage extends StatelessWidget {
                 GestureDetector(
                   onTap: () async {
                     //print('saved');
-                    await SaveImageService().setImage(imgSrc);
+                    try {
+                      await SaveImageService().setImage(imgSrc);
+                    } catch (_) {
+                      showErrorDialog(context, 'could not save the image');
+                    }
                     Navigator.pop(context);
                   },
                   child: Container(
