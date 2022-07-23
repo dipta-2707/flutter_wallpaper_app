@@ -51,10 +51,10 @@ class _MySplashScreenState extends State<MySplashScreen> {
             ),
             Column(
               children: [
-                Container(
+                Image.asset(
+                  'assets/app_logo.png',
                   height: 80,
                   width: 80,
-                  color: Colors.blue,
                 ),
                 const SizedBox(
                   height: 10,

@@ -5,18 +5,17 @@ import 'package:wallpaper_app/api/api_key.dart';
 class ApiService {
   //List<WallpaperModel> wallpapersList = List.empty();
 
-  Future<Map> fetchTranding(String searchValue, String pageNumber) async {
+  Future<Map> fetchTranding(String searchValue) async {
     http.Response response;
     try {
       if (searchValue == "") {
         response = await http.get(
-            Uri.parse(
-                'https://api.pexels.com/v1/curated?&per_page=20&page=$pageNumber'),
+            Uri.parse('https://api.pexels.com/v1/curated?&per_page=48&page=1'),
             headers: {"Authorization": pixelApiKey});
       } else {
         response = await http.get(
             Uri.parse(
-                'https://api.pexels.com/v1/search?query=$searchValue&per_page=20&page=$pageNumber'),
+                'https://api.pexels.com/v1/search?query=$searchValue&per_page=48&page=1'),
             headers: {"Authorization": pixelApiKey});
       }
 

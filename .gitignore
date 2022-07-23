@@ -48,3 +48,4 @@ app.*.map.json
 
 #api keu
 /lib/api/api_key.dart
+/lib/view/test_home.dart
