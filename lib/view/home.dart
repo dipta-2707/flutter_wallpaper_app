@@ -153,7 +153,6 @@ class _MyHomeState extends State<MyHome> {
                 child: FutureBuilder(
                     future: ApiService().fetchTranding(_searchController.text),
                     builder: (context, AsyncSnapshot snapshot) {
-                      print('searched by ${_searchController.text}');
                       try {
                         _myController.imagesList.clear();
                         for (var i = 0;
@@ -197,8 +196,19 @@ class _MyHomeState extends State<MyHome> {
                             return const LinearProgressIndicator();
                         }
                       } catch (_) {
-                        return const Text(
-                            'please check your internet connection');
+                        return Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/no_internet.gif',
+                                height: 100,
+                                width: 100,
+                              ),
+                              const Text('No internet Connection')
+                            ],
+                          ),
+                        );
                       }
                     }),
               )

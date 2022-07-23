@@ -16,7 +16,12 @@ class MyGridTile extends StatelessWidget {
         if (loadingProgress == null) {
           return child;
         }
-        return const Center(child: CircularProgressIndicator());
+        //return const Center(child: CircularProgressIndicator());
+        return Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [Color(0xffD3CCE3), Color(0xffE9E4F0)])),
+        );
       }),
     ));
   }
