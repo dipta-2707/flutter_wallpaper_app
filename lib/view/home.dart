@@ -20,6 +20,8 @@ class _MyHomeState extends State<MyHome> {
   // Grid State controller
   final MyController _myController = MyController();
 
+  bool _isNoInternet = false;
+
   //int _pageNumber = 1;
   @override
   void initState() {
@@ -49,8 +51,9 @@ class _MyHomeState extends State<MyHome> {
       for (var i = 0; i < json["photos"].length; i++) {
         _myController.imagesList.add(json["photos"][i]["src"]["portrait"]);
       }
+      _isNoInternet = false;
     } catch (e) {
-      print(e);
+      _isNoInternet = true;
     }
   }
 
@@ -165,7 +168,7 @@ class _MyHomeState extends State<MyHome> {
                 child: FutureBuilder(
                     future: futureFunction(),
                     builder: (context, AsyncSnapshot snapshot) {
-                      try {
+                      if (_isNoInternet == false) {
                         switch (snapshot.connectionState) {
                           case ConnectionState.done:
                             return Obx(() => GridView.builder(
@@ -199,19 +202,22 @@ class _MyHomeState extends State<MyHome> {
                           default:
                             return const LinearProgressIndicator();
                         }
-                      } catch (_) {
+                      } else {
                         // ignore: avoid_unnecessary_containers
-                        print(_);
                         return Container(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
                                 'assets/no_internet.gif',
-                                height: 100,
-                                width: 100,
+                                height: 250,
+                                width: 250,
                               ),
-                              const Text('No internet Connection')
+                              IconButton(
+                                  onPressed: () {
+                                    setState(() {});
+                                  },
+                                  icon: const Icon(Icons.replay))
                             ],
                           ),
                         );
