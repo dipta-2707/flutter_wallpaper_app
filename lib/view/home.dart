@@ -24,7 +24,6 @@ class _MyHomeState extends State<MyHome> {
   @override
   void initState() {
     _searchController = TextEditingController();
-    // TODO: implement initState
     super.initState();
     // _imageLink.clear();
     _scrollController.addListener(() {
@@ -43,9 +42,20 @@ class _MyHomeState extends State<MyHome> {
     }
   }
 
+  Future futureFunction() async {
+    try {
+      var json = await ApiService().fetchTranding(_searchController.text);
+      _myController.imagesList.clear();
+      for (var i = 0; i < json["photos"].length; i++) {
+        _myController.imagesList.add(json["photos"][i]["src"]["portrait"]);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _searchController.dispose();
     _myController.dispose();
@@ -82,6 +92,7 @@ class _MyHomeState extends State<MyHome> {
       ),
       body: SingleChildScrollView(
         controller: _scrollController,
+        // ignore: avoid_unnecessary_containers
         child: Container(
           child: Column(
             children: [
@@ -114,11 +125,12 @@ class _MyHomeState extends State<MyHome> {
                       )),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               //------------------- quick search ------------------
 
+              // ignore: sized_box_for_whitespace
               Container(
                 //color: Colors.red,
                 height: 50,
@@ -151,17 +163,9 @@ class _MyHomeState extends State<MyHome> {
                 margin:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
                 child: FutureBuilder(
-                    future: ApiService().fetchTranding(_searchController.text),
+                    future: futureFunction(),
                     builder: (context, AsyncSnapshot snapshot) {
                       try {
-                        _myController.imagesList.clear();
-                        for (var i = 0;
-                            i < snapshot.data["photos"].length;
-                            i++) {
-                          _myController.imagesList.add(
-                              snapshot.data["photos"][i]["src"]["portrait"]);
-                        }
-
                         switch (snapshot.connectionState) {
                           case ConnectionState.done:
                             return Obx(() => GridView.builder(
@@ -196,6 +200,8 @@ class _MyHomeState extends State<MyHome> {
                             return const LinearProgressIndicator();
                         }
                       } catch (_) {
+                        // ignore: avoid_unnecessary_containers
+                        print(_);
                         return Container(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,

@@ -11,6 +11,7 @@ class MyFullImage extends StatelessWidget {
     return Material(
       child: Stack(
         children: [
+          // ignore: sized_box_for_whitespace
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -34,6 +35,7 @@ class MyFullImage extends StatelessWidget {
                     } catch (_) {
                       showErrorDialog(context, 'could not save the image');
                     }
+                    // ignore: use_build_context_synchronously
                     Navigator.pop(context);
                   },
                   child: Container(

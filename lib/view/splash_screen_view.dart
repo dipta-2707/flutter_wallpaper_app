@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class MySplashScreen extends StatefulWidget {
@@ -21,14 +19,17 @@ class _MySplashScreenState extends State<MySplashScreen> {
     await Future.delayed(const Duration(milliseconds: 2000), () {});
 
     if (await Permission.storage.request().isGranted) {
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/home/');
     } else {
       var status = await Permission.storage.status;
       if (status.isGranted) {
+        // ignore: use_build_context_synchronously
         Navigator.pushReplacementNamed(context, '/home/');
       } else if (status.isDenied) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: const Text('need storage permisson to save image')));
+            content: Text('need storage permisson to save image')));
       } else if (status.isPermanentlyDenied) {
         openAppSettings();
       }

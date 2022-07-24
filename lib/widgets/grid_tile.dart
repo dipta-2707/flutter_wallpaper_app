@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class MyGridTile extends StatelessWidget {
   final String imgSrc;
@@ -9,6 +7,7 @@ class MyGridTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridTile(
+        // ignore: avoid_unnecessary_containers
         child: Container(
       child: Image.network(imgSrc, fit: BoxFit.cover, loadingBuilder:
           (BuildContext context, Widget child,
