@@ -11,12 +11,12 @@ class ApiService {
       if (searchValue == "") {
         response = await http.get(
             Uri.parse(
-                'https://api.pexels.com/v1/search?query=wallpaper&per_page=48&page=1'),
+                'https://api.pexels.com/v1/search?query=wallpaper&per_page=60&page=1'),
             headers: {"Authorization": pixelApiKey});
       } else {
         response = await http.get(
             Uri.parse(
-                'https://api.pexels.com/v1/search?query=${searchValue}%20wallpaper&per_page=48&page=1'),
+                'https://api.pexels.com/v1/search?query=$searchValue%20wallpaper&per_page=60&page=1'),
             headers: {"Authorization": pixelApiKey});
       }
 

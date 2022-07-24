@@ -39,7 +39,7 @@ class _MyHomeState extends State<MyHome> {
   _loadMore() {
     //_pageNumber = _pageNumber + 1;
     // _myController.increasePageNumber();
-    if (_myController.totalImage < 48) {
+    if (_myController.totalImage < 60) {
       _myController.increaseListIteamNumber();
     }
   }
@@ -76,11 +76,11 @@ class _MyHomeState extends State<MyHome> {
           // ignore: prefer_const_literals_to_create_immutables
           children: [
             Container(
-              margin: const EdgeInsets.only(right: 7.0),
+              margin: const EdgeInsets.only(right: 2.0),
               child: Image.asset(
                 'assets/app_logo.png',
-                height: 32,
-                width: 32,
+                height: 45,
+                width: 45,
               ),
             ),
             const Text(

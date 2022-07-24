@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.black87,
           hoverColor: Colors.transparent,
           splashColor: Colors.transparent),
-      home: const MyHome(),
+      home: const MySplashScreen(),
       routes: {'/home/': (context) => const MyHome()},
     );
   }

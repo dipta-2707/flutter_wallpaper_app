@@ -12,6 +12,10 @@ List<List> catagoryData = [
     'https://images.pexels.com/photos/163036/mario-luigi-yoschi-figures-163036.jpeg?auto=compress&w=150'
   ],
   [
+    'Cars',
+    'https://images.pexels.com/photos/39501/lamborghini-brno-racing-car-automobiles-39501.jpeg?auto=compress&w=150'
+  ],
+  [
     'Animal',
     'https://images.pexels.com/photos/33152/european-rabbits-bunnies-grass-wildlife.jpg?auto=compress&w=150'
   ],
