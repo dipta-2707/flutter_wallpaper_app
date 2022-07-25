@@ -21,8 +21,7 @@ It's a wallaper app where user can search for wallpaper and set for home screen.
 ## Screenshots
 
 Splash Screen
-
-<img src="Ui-Ux/uiSplash.jpg" width="130" height="370">
+![App Screenshot](Ui-Ux/uiSplash.jpg)
 
 Home Screen
 ![App Screenshot](Ui-Ux/ui_home.jpg)
