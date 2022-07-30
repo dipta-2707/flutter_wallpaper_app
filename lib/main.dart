@@ -25,8 +25,8 @@ class _MyAppState extends State<MyApp> {
       title: 'Wallpaper Pool',
       debugShowCheckedModeBanner: false,
       //themeMode: _themeController.themeMode,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: MyTheme.lightTheme,
+      darkTheme: MyTheme.darkTheme,
       home: const MyHome(),
       routes: {'/home/': (context) => const MyHome()},
     );

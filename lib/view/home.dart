@@ -8,6 +8,8 @@ import 'package:wallpaper_app/view/full_image_view.dart';
 import 'package:wallpaper_app/widgets/catagory_widget.dart';
 import 'package:wallpaper_app/widgets/grid_tile.dart';
 
+import '../controller/theme_controller.dart';
+
 class MyHome extends StatefulWidget {
   const MyHome({Key? key}) : super(key: key);
 
@@ -69,6 +71,7 @@ class _MyHomeState extends State<MyHome> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(IconController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -95,12 +98,10 @@ class _MyHomeState extends State<MyHome> {
           ],
         ),
         actions: [
-          IconButton(
-              onPressed: () {
-                Get.changeTheme(
-                    Get.isDarkMode ? ThemeData.light() : ThemeData.dark());
-              },
-              icon: const Icon(Icons.dark_mode)),
+          GetBuilder<IconController>(
+              builder: (controller) => IconButton(
+                  icon: controller.getIcon(),
+                  onPressed: () => controller.toggleDarkMode()))
         ],
       ),
       body: SingleChildScrollView(
@@ -112,7 +113,9 @@ class _MyHomeState extends State<MyHome> {
               //------------------------ Search Bar -----------------
               Container(
                 decoration: BoxDecoration(
-                    color: const Color(0xff2C3639),
+                    //color: const Color(0xff2C3639),
+                    // color:
+                    //     Get.isDarkMode ? Color(0xff2C3639) : Color(0xffDFF6FF),
                     borderRadius: BorderRadius.circular(35)),
                 margin: const EdgeInsets.only(left: 25, right: 25),
                 padding: const EdgeInsets.symmetric(horizontal: 15),
