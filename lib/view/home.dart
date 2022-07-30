@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wallpaper_app/api/api_services.dart';
 import 'package:wallpaper_app/controller/grid_controller.dart';
-import 'package:wallpaper_app/controller/theme_controller.dart';
+
 import 'package:wallpaper_app/data/list_catagory.dart';
 import 'package:wallpaper_app/view/full_image_view.dart';
 import 'package:wallpaper_app/widgets/catagory_widget.dart';
 import 'package:wallpaper_app/widgets/grid_tile.dart';
 
 class MyHome extends StatefulWidget {
-  late ThemeController myThemeController;
-  MyHome(this.myThemeController, {Key? key}) : super(key: key);
+  const MyHome({Key? key}) : super(key: key);
 
   @override
   State<MyHome> createState() => _MyHomeState();
@@ -98,11 +97,10 @@ class _MyHomeState extends State<MyHome> {
         actions: [
           IconButton(
               onPressed: () {
-                widget.myThemeController.toggleTheme();
+                Get.changeTheme(
+                    Get.isDarkMode ? ThemeData.light() : ThemeData.dark());
               },
-              icon: Icon(widget.myThemeController.themeMode == ThemeMode.dark
-                  ? Icons.light_mode
-                  : Icons.dark_mode))
+              icon: const Icon(Icons.dark_mode)),
         ],
       ),
       body: SingleChildScrollView(
@@ -114,9 +112,7 @@ class _MyHomeState extends State<MyHome> {
               //------------------------ Search Bar -----------------
               Container(
                 decoration: BoxDecoration(
-                    color: widget.myThemeController.themeMode == ThemeMode.light
-                        ? const Color(0xfff5f8fd)
-                        : const Color(0xff2C3639),
+                    color: const Color(0xff2C3639),
                     borderRadius: BorderRadius.circular(35)),
                 margin: const EdgeInsets.only(left: 25, right: 25),
                 padding: const EdgeInsets.symmetric(horizontal: 15),

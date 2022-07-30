@@ -16,19 +16,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final ThemeController _themeController = ThemeController();
   @override
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Wallpaper Pool',
-      themeMode: _themeController.themeMode,
-      theme: MyTheme.whiteTheme,
-      darkTheme: MyTheme.darkTheme,
-      home: MyHome(_themeController),
-      routes: {'/home/': (context) => MyHome(_themeController)},
+      debugShowCheckedModeBanner: false,
+      //themeMode: _themeController.themeMode,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      home: const MyHome(),
+      routes: {'/home/': (context) => const MyHome()},
     );
   }
 }
