@@ -15,9 +15,9 @@ class IconController extends GetxController {
   void toggleDarkMode() {
     isDarkMode = !isDarkMode;
     if (isDarkMode) {
-      Get.changeTheme(MyTheme.darkTheme);
+      Get.changeThemeMode(ThemeMode.dark);
     } else {
-      Get.changeTheme(MyTheme.lightTheme);
+      Get.changeThemeMode(ThemeMode.light);
     }
     update();
   }

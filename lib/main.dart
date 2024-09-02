@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       title: 'Wallpaper Pool',
       debugShowCheckedModeBanner: false,
-      //themeMode: _themeController.themeMode,
+      //themeMode: IconController().isDarkMode ? ThemeMode.dark : ThemeMode.light,
       theme: MyTheme.lightTheme,
       darkTheme: MyTheme.darkTheme,
       home: const MyHome(),
