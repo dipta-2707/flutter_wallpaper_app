@@ -50,6 +50,14 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
 
+flutter_native_splash:
+  color: "#ffffff"
+  image: "assets/app_logo.png"
+
+  android_12:
+    color: "#ffffff"
+    image: "assets/app_logo.png"
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -66,6 +74,5 @@ flutter:
     - assets/no_internet.gif
 
 
-flutter_native_splash:
-  color: "#ffffff"
-  image: assets/app_logo.png
+
+
